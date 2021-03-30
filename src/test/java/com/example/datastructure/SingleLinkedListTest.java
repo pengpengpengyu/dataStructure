@@ -3,6 +3,9 @@ package com.example.datastructure;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 单链表
  */
@@ -16,13 +19,28 @@ public class SingleLinkedListTest {
         HeroNode heroNode3 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode heroNode4 = new HeroNode(3, "吴用", "智多星");
 
-        list.add(heroNode1);
-        list.add(heroNode2);
-        list.add(heroNode3);
-        list.add(heroNode4);
+        list.addByOrder(heroNode1);
+        list.addByOrder(heroNode2);
+        list.addByOrder(heroNode3);
+        list.addByOrder(heroNode1);
+        list.addByOrder(heroNode4);
 
         list.list();
+       /* System.out.println("==================================================");
+        list.delete(heroNode2);
+        list.list();*/
     }
+
+    @Test
+    public void test2() {
+
+        List<String> list = new ArrayList<>();
+        String str = "abc";
+        list.add(str);
+        list.add(str);
+        list.forEach(System.out::println);
+    }
+
 
     /**
      * 单链表
@@ -53,6 +71,53 @@ public class SingleLinkedListTest {
                 temp = temp.next;
             }
             temp.next = hero;
+        }
+
+        /**
+         * 有序插入
+         *
+         * @param heroNode
+         */
+        public void addByOrder(HeroNode heroNode) {
+            HeroNode temp = head;
+            while (true) {
+                if (null == temp.next) {
+                    break;
+                }
+
+                if (temp.next.getNo() > heroNode.getNo()) {
+                    heroNode.next = temp.next;
+                    break;
+                }
+                temp = temp.next;
+            }
+            if (temp.getNo() == heroNode.getNo()) {
+                HeroNode newNode = new HeroNode(heroNode.getNo(), heroNode.getName(), heroNode.getNickName());
+                newNode.next = temp.next;
+                temp.next = newNode;
+
+            } else {
+                temp.next = heroNode;
+            }
+        }
+
+        /**
+         * 删除节点（根据no）
+         *
+         * @param heroNode
+         */
+        public void delete(HeroNode heroNode) {
+            if (null == head.next) {
+                System.out.println("该链表没有数据");
+            }
+            HeroNode temp = head;
+            while (true) {
+                if (null == temp.next || temp.next.getNo() == heroNode.getNo()) {
+                    temp.next = heroNode.next;
+                    break;
+                }
+                temp = temp.next;
+            }
         }
 
         /**
