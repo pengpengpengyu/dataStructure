@@ -29,6 +29,10 @@ public class SingleLinkedListTest {
        /* System.out.println("==================================================");
         list.delete(heroNode2);
         list.list();*/
+
+        System.out.println("length=" + list.getListLength(list.getHead()));
+
+        System.out.println("res=" + list.getHeroNodeByLastIndex(list.getHead(), 2));
     }
 
     @Test
@@ -52,6 +56,10 @@ public class SingleLinkedListTest {
          * 头部节点, 该节点不存放数据, 否则将导致找不到头结点
          */
         private HeroNode head = new HeroNode(0, "", "");
+
+        public HeroNode getHead() {
+            return head;
+        }
 
         /**
          * 添加节点
@@ -118,6 +126,49 @@ public class SingleLinkedListTest {
                 }
                 temp = temp.next;
             }
+        }
+
+        /**
+         * 获取链表有效节点的长度(不包含头)
+         *
+         * @param head
+         * @return
+         */
+        public int getListLength(HeroNode head) {
+            if (null == head || null == head.next) {
+                return 0;
+            }
+
+            HeroNode current = head.next;
+            int length = 0;
+            while (null != current) {
+                length++;
+                current = current.next;
+            }
+
+            return length;
+        }
+
+        /**
+         * 求链表倒数第n个节点
+         *
+         * @param head
+         * @param index
+         * @return
+         */
+        public HeroNode getHeroNodeByLastIndex(HeroNode head, int index) {
+
+            int length = this.getListLength(head);
+            if (length <= 0 || index > length) {
+                return null;
+            }
+
+            HeroNode temp = head.next;
+            for (int i = 0; i < length - index; i++) {
+                temp = temp.next;
+            }
+
+            return temp;
         }
 
         /**
