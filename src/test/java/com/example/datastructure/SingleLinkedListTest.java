@@ -22,17 +22,20 @@ public class SingleLinkedListTest {
         list.addByOrder(heroNode1);
         list.addByOrder(heroNode2);
         list.addByOrder(heroNode3);
-        list.addByOrder(heroNode1);
+        //list.addByOrder(heroNode1);
         list.addByOrder(heroNode4);
 
         list.list();
-       /* System.out.println("==================================================");
-        list.delete(heroNode2);
+        System.out.println("==================================================");
+        /*list.delete(heroNode2);
         list.list();*/
 
-        System.out.println("length=" + list.getListLength(list.getHead()));
+       // System.out.println("length=" + list.getListLength(list.getHead()));
 
-        System.out.println("res=" + list.getHeroNodeByLastIndex(list.getHead(), 2));
+      //  System.out.println("res=" + list.getHeroNodeByLastIndex(list.getHead(), 2));
+
+        list.reverse(list.getHead());
+        list.list();
     }
 
     @Test
@@ -172,6 +175,27 @@ public class SingleLinkedListTest {
         }
 
         /**
+         * 列表反转
+         * @param head
+         */
+        public void reverse(HeroNode head) {
+            if (null == head || null == head.next || null == head.next.next) {
+                return;
+            }
+            HeroNode rerverseNode = new HeroNode();
+            HeroNode cur = head.next;
+            HeroNode next = null;
+            while (null != cur) {
+                next = cur.next;
+                cur.next = rerverseNode.next;
+                rerverseNode.next = cur;
+                cur = next;
+            }
+
+            head.next = rerverseNode.next;
+        }
+
+        /**
          * 遍历列表
          */
         public void list() {
@@ -199,6 +223,9 @@ public class SingleLinkedListTest {
         private String nickName;
 
         private HeroNode next;
+
+        public HeroNode() {
+        }
 
         public HeroNode(int no, String name, String nickName) {
             this.no = no;
