@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 单链表
@@ -210,6 +211,23 @@ public class SingleLinkedListTest {
                 temp = temp.next;
 
                 System.out.println(temp);
+            }
+        }
+
+        /**
+         * 逆序遍历
+         */
+        public void reverseList() {
+            HeroNode cur = head.next;
+            Stack<HeroNode> stack = new Stack<>();
+
+            while (null != cur) {
+                stack.push(cur);
+                cur = cur.next;
+            }
+
+            while (stack.size() > 0) {
+                System.out.println(stack.pop());
             }
         }
     }
